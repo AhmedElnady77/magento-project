@@ -1,0 +1,13 @@
+<?php
+$news = $this->getLoadedNews();
+// $department = $this->getLoadedDepartment();
+?>
+<?php if($news->getId()) : ?>
+    <div class="news-view-wrapper">
+
+
+        <div class="content"><?php echo $news->getContent(); ?></div>
+    </div>
+<?php else : ?>
+    <?php echo __('This new does not exist'); ?>
+<?php endif; ?>

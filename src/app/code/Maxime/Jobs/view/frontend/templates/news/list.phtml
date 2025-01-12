@@ -1,0 +1,42 @@
+<?php
+    $newsCollection = $this->getLoadedNewsCollection();
+    // dd($newsCollection);
+    $iterator = 1;
+    $total = count($newsCollection);
+?>
+
+<div class="news-wrapper">
+    <ol class="news list">
+<?php foreach($newsCollection AS $news): ?>
+    <li class="item<?php echo ($iterator == 1) ? ' first' : ''; ?><?php echo ($total == $iterator) ? ' last' : ''; ?>">
+        <div class="title">
+            <a href="<?php echo $this->getNewsUrl($news); ?>" title="<?php echo $news['title']; ?>">
+                <?php echo $news['title']; ?>
+            </a>
+        </div>
+        <div class="department_name">
+    <?php echo __('Department : '); ?>
+    <?php if (!empty($news['department_names']) && is_array($news['department_names'])): ?>
+        <?php
+        $totalDepartments = count($news['department_names']);
+        $currentIndex = 0;
+        ?>
+        <?php foreach ($news['department_names'] as $key => $departmentName): ?>
+            <a href="<?php echo $this->getDepartmentNewsUrl($news['department_ids'][$key]); ?>" title="<?php echo htmlspecialchars($departmentName); ?>">
+                <?php echo htmlspecialchars($departmentName); ?>
+            </a>
+            <?php $currentIndex++; ?>
+            <?php if ($currentIndex < $totalDepartments): ?>
+                ,
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
+
+
+        <div class="content"><?php echo $news['content']; ?></div>
+    </li>
+    <?php $iterator++; ?>
+<?php endforeach; ?>
+    </ol>
+</div>
